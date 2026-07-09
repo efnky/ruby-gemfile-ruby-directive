@@ -7,8 +7,7 @@ RUN bundle install --jobs 4
 FROM ruby:3.3.6-slim
 WORKDIR /app
 RUN groupadd -r appuser && useradd -r -g appuser -u 1001 appuser
-COPY --from=builder /app/.bundle ./.bundle
-COPY --from=builder /app/vendor ./vendor
+COPY --from=builder /usr/local/bundle /usr/local/bundle
 COPY Gemfile ./
 COPY . .
 RUN bundle config set --local without 'development test'
